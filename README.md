@@ -104,13 +104,13 @@ Each week, you'll unlock **a new chapter of the journey**. You'll get:
 Here’s what the upcoming weeks look like 👇
 
 
-| Lesson Number | Title | Article | Live Session |
-|---------------|----------------|--------------|-------------|
-| <div align="center">0</div> | Project overview and architecture | November 12 | November 16|
-| <div align="center">1</div> | Building Voice Agents with FastRTC | November 19 | November 23 |
-| <div align="center">2</div> | Superlinked for Realtime Property Search | November 26 | November 30 |
-| <div align="center">3</div> | Improving STT and TTS Systems | December 3 | December 7 |
-| <div align="center">4</div> | Deployment, monitoring and Twilio Integration | December 10 | December 14
+| Lesson Number | Title | Article | Code | Live Session |
+|---------------|----------------|--------------|--------------|-------------|
+| <div align="center">0</div> | Project overview and architecture | November 12 | <div align="center">-</div> | November 16|
+| <div align="center">1</div> | Building Voice Agents with FastRTC | November 19 | November 19 | November 23 |
+| <div align="center">2</div> | Superlinked for Realtime Property Search | November 26 | November 26 | November 30 |
+| <div align="center">3</div> | Improving STT and TTS Systems | December 3 | December 3 | December 7 |
+| <div align="center">4</div> | Deployment, monitoring and Twilio Integration | December 10 | December 10 | December 14
 
 ---
 
