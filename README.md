@@ -19,6 +19,7 @@
 - [Getting Started](#getting-started)
 - [Lesson 0: Project Overview and Architecture](#lesson-0-project-overview-and-architecture)
 - [Lesson 1: Building Realtime Voice Agents with FastRTC](#lesson-1-building-realtime-voice-agents-with-fastrtc)
+- [Lesson 2: The Missing Layer in Modern AI Retrieval](#lesson-2-the-missing-layer-in-modern-ai-retrieval)
 - [The tech stack](#the-tech-stack)
 - [Contributors](#contributors)
 - [License](#license)
@@ -196,6 +197,56 @@ Follow the instructions in the [article](https://theneuralmaze.substack.com/p/bu
 - Start receiving real phone calls!
 
 🎥 **Join the Live Session**: [Join Premium](https://theneuralmaze.substack.com/subscribe), and you'll receive a notification when we are live on **Sunday, November 23rd at 5PM CET** for a complete walkthrough and Q&A!
+
+---
+
+## Lesson 2: The Missing Layer in Modern AI Retrieval
+
+**Goal**: Learn how to implement advanced search capabilities for realtime voice agents using Superlinked to handle complex, multi-attribute queries.
+
+### Steps:
+
+1. 📖 **Read the Article**: Start with the [Substack article](https://theneuralmaze.substack.com/p/the-missing-layer-in-modern-ai-retrieval) to understand:
+   - Why traditional vector search isn't enough for multi-attribute queries
+   - How Superlinked combines different data types (text, numbers, categories) into a unified search space
+   - The limitations of metadata filters, multiple searches, and re-ranking approaches
+
+2. 📓 **Work Through the Notebook**: Open and run through [`notebooks/lesson_2_superlinked_property_search.ipynb`](notebooks/lesson_2_superlinked_property_search.ipynb) to learn:
+   - How to define different Space types (TextSimilaritySpace, NumberSpace, CategoricalSimilaritySpace)
+   - How to combine spaces into a single searchable index
+   - How to dynamically adjust weights at query time
+
+3. 💻 **Explore the Code**: Dive into the repository to see how Superlinked integrates with our voice agent:
+   - Check out `src/realtime_phone_agents/infrastructure/superlinked/` for the implementation
+   - Review `src/realtime_phone_agents/agent/tools/property_search.py` to see how the search tool is exposed to the agent
+   
+   _We'll explore the code in detail during the Live Session!_
+
+4. 🚀 **Test the Complete System**: Now it's time to see everything work together!
+
+   **Step 1**: Start the call center application
+
+   ```bash
+   make start-call-center
+   ```
+
+   **Step 2**: Expose your local server (if not already running)
+
+   ```bash
+   make start-ngrok-tunnel
+   ```
+
+   **Step 3**: Call your Twilio number and test the property search
+
+   Try asking the agent:
+   
+   > _"Do you have apartments in Barrio de Salamanca of at most 900,000 euros?"_
+
+   Wait for the response. The agent should find and return information about the only apartment in the dataset ([`data/properties.csv`](data/properties.csv)) that meets these criteria!
+
+   This demonstrates how the voice agent can now handle complex queries combining location (Barrio de Salamanca) and price constraints (≤ €900,000) in real-time.
+
+🎥 **Join the Live Session**: [Join Premium](https://theneuralmaze.substack.com/subscribe) for the live walkthrough on **Saturday, November 30th** where we'll dive deep into the code and answer your questions!
 
 ---
 
