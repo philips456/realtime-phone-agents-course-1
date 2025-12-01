@@ -11,7 +11,7 @@ class GroqSettings(BaseModel):
         default="https://api.groq.com/openai/v1", description="Groq Base URL"
     )
     model: str = Field(default="openai/gpt-oss-20b", description="Groq Model to use")
-    stt_model: str = Field(default="whisper-large-v3-turbo", description="Groq STT Model to use")
+    stt_model: str = Field(default="whisper-large-v3", description="Groq STT Model to use")
 
 
 # --- Groq Configuration ---
@@ -40,11 +40,23 @@ class QdrantSettings(BaseModel):
 class RunPodSettings(BaseModel):
     api_key: str = Field(default="", description="RunPod API Key")
     faster_whisper_pod_url: str = Field(default="", description="Faster Whisper Pod URL")
+    orpheus_pod_url: str = Field(default="", description="Orpheus Pod URL")
     faster_whisper_model: str = Field(default="Systran/faster-whisper-large-v3")
     faster_whisper_gpu_type: str = Field(default="NVIDIA GeForce RTX 4090", description="Faster Whisper GPU Type")
+
+
+# --- Orpheus TTS Configuration ---
+class OrpheusTTSSettings(BaseModel):
+    api_url: str = Field(default="http://localhost:8000", description="Orpheus TTS API URL")
+    model: str = Field(default="orpheus-3b-0.1-ft", description="Orpheus TTS Model")
+    voice: str = Field(default="mia", description="Default voice")
+    temperature: float = Field(default=0.6, description="Temperature for generation")
+    top_p: float = Field(default=0.9, description="Top-p sampling parameter")
+    max_tokens: int = Field(default=1200, description="Maximum tokens to generate")
+    repetition_penalty: float = Field(default=1.1, description="Repetition penalty")
+    sample_rate: int = Field(default=24000, description="Audio sample rate (Hz)")
+    debug: bool = Field(default=False, description="Enable debug mode")
     
-
-
 # --- Settings Configuration ---
 class Settings(BaseSettings):
     groq: GroqSettings = Field(default_factory=GroqSettings)
@@ -52,9 +64,11 @@ class Settings(BaseSettings):
     superlinked: SuperlinkedSettings = Field(default_factory=SuperlinkedSettings)
     qdrant: QdrantSettings = Field(default_factory=QdrantSettings)
     runpod: RunPodSettings = Field(default_factory=RunPodSettings)
+    orpheus: OrpheusTTSSettings = Field(default_factory=OrpheusTTSSettings)
 
-    stt_model: str = Field(default="faster-whisper", description="Family of STT models to use")
-    
+    stt_model: str = Field(default="groq-whisper", description="Family of STT models to use")
+    tts_model: str = Field(default="orpheus-runpod", description="Family of TTS models to use")
+
     model_config: ClassVar[SettingsConfigDict] = SettingsConfigDict(
         env_file=[".env"],
         env_file_encoding="utf-8",

@@ -70,7 +70,3 @@ print("="*70)
 print("\nPlease copy the following URL and paste it in your .env file:")
 print(f"\n  RUNPOD__FASTER_WHISPER_POD_URL={pod_url}")
 print("\n" + "="*70)
-
-
-
-

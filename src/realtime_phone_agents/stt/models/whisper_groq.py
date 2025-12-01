@@ -5,8 +5,8 @@ from realtime_phone_agents.config import settings
 from fastrtc import audio_to_bytes
 
 
-class GroqWhisperSTT(STTModel):
-    """Speech-to-Text model using Groq Whisper."""
+class WhisperGroqSTT(STTModel):
+    """Speech-to-Text model using Whisper from Groq provider."""
 
     def __init__(self, model_name: str = settings.groq.stt_model):
         self.groq_client = OpenAI(api_key=settings.groq.api_key, base_url=settings.groq.base_url)

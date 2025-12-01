@@ -28,6 +28,10 @@ lint-check:
 create-faster-whisper-pod:
 	uv run python scripts/runpod/create_faster_whisper_pod.py
 
+create-orpheus-pod:
+	uv run python scripts/runpod/create_orpheus_pod.py
+
+
 # --- Run Gradio ---
 
 start-gradio-application:
