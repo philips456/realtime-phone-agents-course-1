@@ -73,6 +73,40 @@ To leverage Superlinked's natural queries, we'll make use of OpenAI models (in p
 
 Simply add your OpenAI API Key to the `OPENAI__API_KEY` var in your `.env` file.
 
+
+### Together AI (for using Orpheus 3B through Together)
+
+If you prefer using [Together AI](https://www.together.ai/)'s hosted version of Orpheus 3B, you will need to create an API key in your Together dashboard.
+
+Simply add your Together AI API Key to the `TOGETHER__API_KEY` var in your `.env` file.
+
+```
+TOGETHER__API_KEY=YOUR_TOGETHER_API_KEY
+```
+
+This allows you to call the original Orpheus 3B model exactly as released by Canopy Labs.
+
+### Runpod (for hosting your own faster-whisper and Orpheus 3B)
+
+Since we will deploy our **own STT and TTS models** on [Runpod](https://runpod.io/), you must also create a Runpod account and generate an API key.
+
+Simply add your Runpod API Key to the `RUNPOD__API_KEY` var in your `.env` file.
+
+```
+RUNPOD__API_KEY=YOUR_RUNPOD_API_KEY
+```
+
+Once your faster-whisper and Orpheus 3B pods are running, copy each Pod’s URL and set them in your .env file:
+
+```
+FASTER_WHISPER__API_URL=THE_URL_OF_YOUR_FASTER_WHISPER_POD
+ORPHEUS__API_URL=THE_URL_OF_YOUR_ORPHEUS_POD
+````
+
+These variables allow your local Gradio application and backend to communicate directly with your hosted models on Runpod.
+
+All other `ORPHEUS__` and `FASTER_WHISPER__` variables can be left at their defaults unless you wish to customize behavior.
+
 # 5. Twilio 
 
 You can hook up a Stream to a SIP provider like Twilio, which lets you give your app its own phone number.

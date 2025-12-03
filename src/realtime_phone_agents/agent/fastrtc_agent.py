@@ -1,7 +1,7 @@
 from typing import AsyncIterator, List, Optional, Tuple
 
 import numpy as np
-from fastrtc import ReplyOnPause, Stream, get_stt_model, get_tts_model
+from fastrtc import ReplyOnPause, Stream
 from langchain.agents import create_agent
 from langchain_groq import ChatGroq
 from langgraph.checkpoint.memory import InMemorySaver
@@ -9,8 +9,10 @@ from loguru import logger
 
 from realtime_phone_agents.agent.tools.property_search import search_property_tool
 from realtime_phone_agents.agent.utils import model_has_tool_calls
+from realtime_phone_agents.background_effects import get_sound_effect
 from realtime_phone_agents.config import settings
-from realtime_phone_agents.voice import get_sound_effect
+from realtime_phone_agents.stt import get_stt_model
+from realtime_phone_agents.tts import get_tts_model
 
 AudioChunk = Tuple[int, np.ndarray]  # (sample_rate, samples)
 
@@ -19,14 +21,21 @@ Your name is Lisa, and you are a real estate assistant working for The Neural Ma
 Your role is to provide short, clear, concrete, and summarised information about apartments.
 You must use the search_property_tool whenever you need property details.
 
-Communication rules:
+# Communication workflow:
+Always start introducing yourself and asking the user for their name and then ask them what they are looking for.
+
+# Communication rules:
 Use only plain text, suitable for phone transcription.
 Do not use emojis, asterisks, bullet points, or any special formatting.
 Write all numbers fully in words. For example, three instead of 3.
-Keep answers concise, friendly, and easy to follow.
+Keep answers concise, friendly, and easy to follow. Don't exceed 1 line of text.
 Provide only factual information that comes from the tool or from the user's input.
 
-When presenting multiple apartments, separate them with simple sentences, maintaining clarity and brevity.
+# Property Search Rules:
+
+If the tool provides more than 1 property, just mention the first one and ask the user if they want to see more.
+Don't mention all the information about the properties, just the price, location and number of rooms and bathrooms in a friendly manner. Say things
+like: "I think I found your future appartment" or "I think I found the perfect appartment for you"
 """.strip()
 
 
@@ -66,8 +75,8 @@ class FastRTCAgent:
             tools: List of tools for the agent (defaults to property search tool)
         """
         # Dependency injection with sensible defaults
-        self._stt_model = stt_model or get_stt_model()
-        self._tts_model = tts_model or get_tts_model()
+        self._stt_model = stt_model or get_stt_model(settings.stt_model)
+        self._tts_model = tts_model or get_tts_model(settings.tts_model)
         self._voice_effect = voice_effect or get_sound_effect()
 
         # Create the React agent directly inside the class
